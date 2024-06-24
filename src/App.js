@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Traveller from "./components/traveller/Traveller";
+import Farmer from "./components/farmer/Farmer";
+import Navbar from "./components/navbar";
 
 function App() {
+  const [selectedOption, setSelectedOption] = useState("traveller");
+
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className='App'>
+        <Navbar
+          selectedOption={selectedOption}
+          handleOptionChange={handleOptionChange}
+        />
+        <Routes>
+          <Route path='/' element={<Traveller />} />
+          <Route path='/traveller' element={<Traveller />} />
+          <Route path='/farmer' element={<Farmer />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
